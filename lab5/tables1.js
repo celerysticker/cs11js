@@ -53,9 +53,9 @@ function sortColumn(column) {
       }
       rows.push(row);
     }
-    
+
    }
-   
+
    // sort
    rows.sort(compareByCol);
 
@@ -76,7 +76,7 @@ function sortColumn(column) {
 
 function compareByCol(a, b) {
   "use strict";
-  /* 
+  /*
    * Sort by cur_column and sort_dir.
    */
 
@@ -86,7 +86,7 @@ function compareByCol(a, b) {
     }
     return 1;
   }
-  
+
   if (a[cur_column] > b[cur_column]) {
     if (sort_dir === 0) {
       return 1;
@@ -102,11 +102,14 @@ window.addEventListener("load", function(e) {
   // attach a click listener on all header cells
   var i;
   var elements = document.getElementById("header").children;
+
+  var funcSortColumn = function(idx) {
+    return function(e) {
+       sortColumn(idx);
+    };
+  };
+
   for (i = 0; i < elements.length; i++) {
-    elements[i].addEventListener("click", (function(idx) {
-      return function(e) {
-        sortColumn(idx);
-      };
-    })(i));
+    elements[i].addEventListener("click", (funcSortColumn)(i));
   }
 });
